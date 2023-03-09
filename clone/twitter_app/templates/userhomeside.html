@@ -89,12 +89,25 @@
                 <img src="{%static 'user.png'%}" alt="" class="img-fluid float-center rounded-circle w-25">
               </div>
                <div class="mt-3">
+                
                 <p class="fs-5 fw-bolder">{{user.first_name}}</p>
                 <p class="fs-5 fw-bolder">{{user.last_name}}</p>
                 <p class="fs-5 fw-bolder">{{user.username}}</p>
                 <p class="fs-6 text-muted fw-bolder">{{user.email}}</p>
+                
                </div>
-            
+              <div class="text-end">
+                <a href="#" class="text-decoration-none text-dark rounded-pill btn btn-light">Edit Profile</a>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <p class="text-bolded">{{0}} Following</p>
+                </div>
+                <div class="col-md-4">
+                  <p class="text-bolded">{{0}} Followerse</p>
+                </div>
+              </div>
+               
             </div>
             
 
@@ -109,9 +122,38 @@
                         </div>
                     </div>
                 </div>
-                <div class="card mt-5 text-center rounded-pill bg-light">
+                <div class="card mt-5 text-center rounded bg-light ">
                 <p class="pt-3">Who to folow</p>
+               
+                <div class="col-12 no-padding">
+                  <h3 class="white-important mb-3 rounded">
+
+                     {% for f in form %}
+                     <p > <a href="{% url 'userdyanmicprofile' f.id %}" class="text-decoration-none text-black">{{ f }} </a> <a href="" class="btn btn-info ">Follow</a> </p>
+                     <br>
+                     
+                     {% endfor %}
+                  </h3>
+                  
+              </div>
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <div class="mt-5">
                 <p>
                         
