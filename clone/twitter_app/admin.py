@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import userfollow
+from .models import Fllow
 # Register your models here.
-admin.site.register(userfollow)
+admin.site.register(Fllow)
