@@ -128,6 +128,7 @@
                 <div class="col-12 no-padding">
                   <h3 class="white-important mb-3 rounded">
 <<<<<<< HEAD
+<<<<<<< HEAD
                       <form action="" method="POST">
                      {% for f in form %}
                     
@@ -138,11 +139,19 @@
                     </form>
 =======
 
+=======
+                      <form action="" method="POST">
+>>>>>>> add files
                      {% for f in form %}
-                     <p > <a href="{% url 'userdyanmicprofile' f.id %}" class="text-decoration-none text-black">{{ f }} </a> <a href="" class="btn btn-info ">Follow</a> </p>
+                    
+                     <p > <a href="{% url 'userdyanmicprofile' f.id %}" class="text-decoration-none text-black">{{ f }} </a> <a href="{% url 'followToggle' data=f.id %} " class="btn btn-info ">Follow</a> </p>
                      <br>
                      
                      {% endfor %}
+<<<<<<< HEAD
+>>>>>>> add files
+=======
+                    </form>
 >>>>>>> add files
                   </h3>
                   

@@ -71,6 +71,9 @@ def userhomeside(request):
 
 def userdyanmicprofile(request,pk):
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> add files
    
     fr = User.objects.filter(id=pk)
     f=fr.values_list('username','email','first_name','last_name')
@@ -81,10 +84,14 @@ def userdyanmicprofile(request,pk):
 
 
 def followToggle(request,pk):
+<<<<<<< HEAD
     pass
 =======
     form=User.objects.filter(id=pk)
     # form = f.filter(id=pk)
     cont={'form':form}
     return render (request,'userdyanmicprofile.html',cont)     
+>>>>>>> add files
+=======
+    pass
 >>>>>>> add files

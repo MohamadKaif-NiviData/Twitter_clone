@@ -16,8 +16,12 @@ urlpatterns = [
     path('registration/login',views.ProfileTemplateView.as_view(),name='registration/login'),
     path('userdyanmicprofile<pk>',views.userdyanmicprofile,name='userdyanmicprofile'),
 <<<<<<< HEAD
+<<<<<<< HEAD
     path('followToggle<pk>' , views.followToggle,name='followToggle'),
 =======
     
+>>>>>>> add files
+=======
+    path('followToggle<pk>' , views.followToggle,name='followToggle'),
 >>>>>>> add files
 ]
