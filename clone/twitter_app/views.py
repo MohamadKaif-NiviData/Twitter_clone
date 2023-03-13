@@ -1,6 +1,7 @@
 
 
 
+
 from django.views import View
 
 
@@ -11,7 +12,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect, render,HttpResponseRedirect
 
 from .forms import user_model
-
+from .models import Follow
 
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
@@ -29,7 +30,7 @@ def home(request):
 
 class UserRegister(CreateView):
   template_name = 'register.html'
-  success_url = reverse_lazy('registration/login')
+  success_url = reverse_lazy('templates/login')
   form_class = UserRegisterForm
   success_message = "Your profile was created successfully"
 
@@ -110,10 +111,20 @@ def userhome(requset):
 def userprofile(request,pk):
     f = User.objects.all()
     form= f.exclude(id=pk)
-    cont={'form':form}
-    print(f,'this is f')
+    follow_count= User.objects.get(pk=id)
+    f_count= follow_count.filter().count()
+
+    # following_count= Follow.objects.all()
+    # fo_count=following_count.count()
+    cont={'form':form,'f_count':f_count}
+    
+    
     return render(request,'userprofile.html',cont)
 
+class followdoneview(View):
+    def post(self,request):
+        follow_id= request.POST.get('followed_user_id')
+        
 
 def userhomeside(request):
     return render(request,'userhomeside.html')   
@@ -130,12 +141,9 @@ def userdyanmicprofile(request,pk):
 
 
 
-def followToggle(request,pk):
-
-    form=User.objects.filter(id=pk)
-    # form = f.filter(id=pk)
-    cont={'form':form}
-    return render (request,'userdyanmicprofile.html',cont)     
+def followUser(request,uname):
+    pass
+  
 
 
 
