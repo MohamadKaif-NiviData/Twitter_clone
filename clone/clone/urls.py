@@ -18,10 +18,9 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-<<<<<<< HEAD
     path('',include('twitter_app.urls')),
     path('templates/',include('django.contrib.auth.urls'))
-=======
-    path('',include('twitter_app.urls'))
->>>>>>> 5fe2e037ebe96b1172fa37018724f811d383728c
+
+  
+
 ]

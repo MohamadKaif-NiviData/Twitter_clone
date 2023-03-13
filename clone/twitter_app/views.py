@@ -1,6 +1,6 @@
 
 
-from django.shortcuts import redirect, render,HttpResponseRedirect
+
 from django.views import View
 
 
@@ -25,7 +25,7 @@ class ProfileTemplateView(TemplateView):
     template_name='registration/login.html'
         
 def home(request):
-    return render(request,'base1.html')
+    return render(request,'base.html')
 
 class UserRegister(CreateView):
   template_name = 'register.html'
@@ -48,7 +48,7 @@ class UserRegister(CreateView):
 #             return render(request,'userhome.html')
 #         return render (request,'login.html')        
 
-@login_required(login_url='Ulogin')
+
 # def userhome(requset):
     # user_info=Tuser.objects.all()
     # form = User.objects.all()
@@ -59,40 +59,38 @@ class UserRegister(CreateView):
 def home(request):
     return render(request,'base.html')
 
-def register(request):
-    form=user_model()
-    if request.method == 'POST':
-        username=request.POST.get('username')
-        email=request.POST.get('email')
-        dob=request.POST.get('dob')
-        password=request.POST.get('pass')
+# def register(request):
+#     form=user_model()
+#     if request.method == 'POST':
+#         username=request.POST.get('username')
+#         email=request.POST.get('email')
+#         dob=request.POST.get('dob')
+#         password=request.POST.get('pass')
         
-        my_user = User.objects.create_user(username,email,password)
-        my_user.save()
-        messages.success(request,'Account is created successfully')
+#         my_user = User.objects.create_user(username,email,password)
+#         my_user.save()
+#         messages.success(request,'Account is created successfully')
 
                     
-    cont={'form':form}
+#     cont={'form':form}
 
-    return render(request,'register.html',cont)
+#     return render(request,'register.html',cont)
 
-def Ulogin(request):    
-    
-  
-    if request.method == 'POST':
+# def Ulogin(request):    
+#     if request.method == 'POST':
         
-        username=request.POST.get('username')
-        pass1=request.POST.get('password')
-        user=authenticate(request,username=username,password=pass1)
+#         username=request.POST.get('username')
+#         pass1=request.POST.get('password')
+#         user=authenticate(request,username=username,password=pass1)
        
-        if user is not None:
+#         if user is not None:
             
-            login(request,user)
-            return redirect('userhome')
+#             login(request,user)
+#             return redirect('userhome')
 
     
-    return render (request,'login.html')
-@login_required(login_url='Ulogin')
+#     return render (request,'login.html')
+
 def userhome(requset):
     # user_info=Tuser.objects.all()
     
@@ -134,14 +132,12 @@ def userdyanmicprofile(request,pk):
 
 def followToggle(request,pk):
 
-    pass
-
     form=User.objects.filter(id=pk)
     # form = f.filter(id=pk)
     cont={'form':form}
     return render (request,'userdyanmicprofile.html',cont)     
 
-    pass
+
 
 def userprofile(request):
     return render(request,'userprofile.html')
