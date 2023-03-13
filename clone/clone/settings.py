@@ -37,8 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'twitter_app',
     'crispy_forms',
+=======
+>>>>>>> 5fe2e037ebe96b1172fa37018724f811d383728c
 ]
 
 MIDDLEWARE = [
@@ -125,4 +128,7 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+<<<<<<< HEAD
 LOGIN_REDIRECT_URL='/userhome'
+=======
+>>>>>>> 5fe2e037ebe96b1172fa37018724f811d383728c

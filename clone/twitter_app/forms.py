@@ -1,5 +1,6 @@
 
 from pyexpat import model
+<<<<<<< HEAD
 
 from django.forms import ModelForm, fields, widgets
 from django.contrib.auth.models import User
@@ -16,6 +17,11 @@ class UserRegisterForm(UserCreationForm):
       model = User
       fields = ['username', 'email', 'first_name','last_name','password1','password2']
 
+=======
+ 
+from django.forms import ModelForm, fields, widgets
+from django.contrib.auth.models import User
+>>>>>>> 5fe2e037ebe96b1172fa37018724f811d383728c
 class user_model(ModelForm):
     class Meta:
         model=User

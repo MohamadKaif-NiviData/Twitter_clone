@@ -1,4 +1,5 @@
 
+
 from django.shortcuts import redirect, render,HttpResponseRedirect
 from django.views import View
 
@@ -6,10 +7,17 @@ from django.views import View
 from .forms import user_model,UserRegisterForm
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
+
+from django.shortcuts import redirect, render,HttpResponseRedirect
+
+from .forms import user_model
+
+
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+
 from django.views.generic import TemplateView
 
 # Create your views here.
@@ -41,11 +49,54 @@ class UserRegister(CreateView):
 #         return render (request,'login.html')        
 
 @login_required(login_url='Ulogin')
-def userhome(requset):
+# def userhome(requset):
     # user_info=Tuser.objects.all()
     # form = User.objects.all()
     # f= form.exclude(id=id)
     # cont={'form':f}
+
+# Create your views here.
+def home(request):
+    return render(request,'base.html')
+
+def register(request):
+    form=user_model()
+    if request.method == 'POST':
+        username=request.POST.get('username')
+        email=request.POST.get('email')
+        dob=request.POST.get('dob')
+        password=request.POST.get('pass')
+        
+        my_user = User.objects.create_user(username,email,password)
+        my_user.save()
+        messages.success(request,'Account is created successfully')
+
+                    
+    cont={'form':form}
+
+    return render(request,'register.html',cont)
+
+def Ulogin(request):    
+    
+  
+    if request.method == 'POST':
+        
+        username=request.POST.get('username')
+        pass1=request.POST.get('password')
+        user=authenticate(request,username=username,password=pass1)
+       
+        if user is not None:
+            
+            login(request,user)
+            return redirect('userhome')
+
+    
+    return render (request,'login.html')
+@login_required(login_url='Ulogin')
+def userhome(requset):
+    # user_info=Tuser.objects.all()
+    
+
     # cont={'user_info':user_info}
     return render(requset,'userhome.html')    
 
@@ -55,6 +106,7 @@ def userhome(requset):
 #     form = tweet_modelform(instance=forms)
 #     cont={'form':form}
 #     return render(request,'tweets.html',cont)     
+
 
 
 def userprofile(request,pk):
@@ -70,10 +122,7 @@ def userhomeside(request):
 
 
 def userdyanmicprofile(request,pk):
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> add files
+
    
     fr = User.objects.filter(id=pk)
     f=fr.values_list('username','email','first_name','last_name')
@@ -84,14 +133,20 @@ def userdyanmicprofile(request,pk):
 
 
 def followToggle(request,pk):
-<<<<<<< HEAD
+
     pass
-=======
+
     form=User.objects.filter(id=pk)
     # form = f.filter(id=pk)
     cont={'form':form}
     return render (request,'userdyanmicprofile.html',cont)     
->>>>>>> add files
-=======
+
     pass
->>>>>>> add files
+
+def userprofile(request):
+    return render(request,'userprofile.html')
+
+
+def userhomeside(request):
+    return render(request,'userhomeside.html')    
+

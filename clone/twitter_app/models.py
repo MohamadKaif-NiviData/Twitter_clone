@@ -1,4 +1,5 @@
 from django.db import models
+<<<<<<< HEAD
 from django.contrib.auth.models import User
 # Create your models here.
 <<<<<<< HEAD
@@ -24,3 +25,7 @@ class userfollow(models.Model):
 =======
   
 >>>>>>> add files
+=======
+
+# Create your models here.
+>>>>>>> 5fe2e037ebe96b1172fa37018724f811d383728c
