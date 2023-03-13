@@ -29,7 +29,7 @@ def home(request):
 
 class UserRegister(CreateView):
   template_name = 'register.html'
-  success_url = reverse_lazy('accounts/login')
+  success_url = reverse_lazy('registration/login')
   form_class = UserRegisterForm
   success_message = "Your profile was created successfully"
 
@@ -108,11 +108,11 @@ def userhome(requset):
 
 
 def userprofile(request,pk):
-    
-    form = User.objects.all()
-    f= form.exclude(id=pk)
-    cont={'form':f}
-    return render(request,'registration/userprofile.html',cont)
+    f = User.objects.all()
+    form= f.exclude(id=pk)
+    cont={'form':form}
+    print(f,'this is f')
+    return render(request,'userprofile.html',cont)
 
 
 def userhomeside(request):
@@ -139,8 +139,7 @@ def followToggle(request,pk):
 
 
 
-def userprofile(request):
-    return render(request,'userprofile.html')
+
 
 
 def userhomeside(request):
