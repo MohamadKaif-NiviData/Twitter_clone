@@ -104,10 +104,10 @@
               </div>
               <div class="row">
                 <div class="col-md-4">
-                  <p class="text-bolded">{{0 }} Following</p>
+                  <p class="text-bolded">Following</p>
                 </div>
                 <div class="col-md-4">
-                  <p class="text-bolded">{{f_count}} Followerse</p>
+                  <p class="text-bolded">{{ request.user.followerse_count }} Followerse</p>
                 </div>
               </div>
 
@@ -132,7 +132,7 @@
                 <div class="col-12 no-padding">
                   <h3 class="white-important mb-3 rounded">
 
-                    <form action="{% url 'follow_done' %}" method="POST">
+                    <form action="#" method="POST">
                      {% for f in form %}
                    
                      <p > <a href="{% url 'userprofile' f.id %}" class="text-decoration-none text-black">{{ f }} </a> <a href="" class="btn btn-info ">Follow</a> </p>

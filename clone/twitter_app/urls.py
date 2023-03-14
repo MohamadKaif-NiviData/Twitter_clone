@@ -3,7 +3,7 @@ from django.urls import path,include
 from twitter_app import views
 
 from django.urls import path
-from twitter_app.views import UserRegister,ProfileTemplateView
+from twitter_app.views import UserRegister,ProfileTemplateView,followdoneview
 
 urlpatterns = [
     path('',views.home,name='home'),
@@ -17,6 +17,7 @@ urlpatterns = [
     path('registration/login',views.ProfileTemplateView.as_view(),name='registration/login'),
     path('userdyanmicprofile<pk>',views.userdyanmicprofile,name='userdyanmicprofile'),
     path('followUser<str:uname>',views.followUser,name='followUser'),
+    path('followdone',views.followdoneview.as_view(),name='followdoneview'),
     
 
 ]

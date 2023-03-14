@@ -32,7 +32,7 @@ class UserRegister(CreateView):
   template_name = 'register.html'
   success_url = reverse_lazy('templates/login')
   form_class = UserRegisterForm
-  success_message = "Your profile was created successfully"
+
 
 
 # class UserLogin(View):
@@ -111,12 +111,12 @@ def userhome(requset):
 def userprofile(request,pk):
     f = User.objects.all()
     form= f.exclude(id=pk)
-    follow_count= User.objects.get(pk=id)
-    f_count= follow_count.filter().count()
+    # follow_count= User.objects.get(pk=id)
+    # f_count= follow_count.filter().count()
 
     # following_count= Follow.objects.all()
     # fo_count=following_count.count()
-    cont={'form':form,'f_count':f_count}
+    cont={'form':form}
     
     
     return render(request,'userprofile.html',cont)
@@ -124,7 +124,7 @@ def userprofile(request,pk):
 class followdoneview(View):
     def post(self,request):
         follow_id= request.POST.get('followed_user_id')
-        
+
 
 def userhomeside(request):
     return render(request,'userhomeside.html')   
