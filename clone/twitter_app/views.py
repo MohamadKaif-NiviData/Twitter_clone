@@ -12,25 +12,26 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect, render,HttpResponseRedirect
 
 from .forms import user_model
-from .models import Follow
+from twitter_app.models import User,Follow
 
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
-from django.contrib.auth.models import User
+
 from django.contrib.auth.decorators import login_required
 
 from django.views.generic import TemplateView
-
+from django.contrib.auth import get_user_model
+User=get_user_model()
 # Create your views here.
 class ProfileTemplateView(TemplateView):
-    template_name='registration/login.html'
+    template_name='templates/login.html'
         
 def home(request):
     return render(request,'base.html')
 
 class UserRegister(CreateView):
   template_name = 'register.html'
-  success_url = reverse_lazy('templates/login')
+  success_url = reverse_lazy('templates/login/')
   form_class = UserRegisterForm
 
 
@@ -57,8 +58,7 @@ class UserRegister(CreateView):
     # cont={'form':f}
 
 # Create your views here.
-def home(request):
-    return render(request,'base.html')
+
 
 # def register(request):
 #     form=user_model()
@@ -93,10 +93,7 @@ def home(request):
 #     return render (request,'login.html')
 
 def userhome(requset):
-    # user_info=Tuser.objects.all()
-    
-
-    # cont={'user_info':user_info}
+  
     return render(requset,'userhome.html')    
 
 
@@ -109,47 +106,65 @@ def userhome(requset):
 
 
 def userprofile(request,pk):
-    f = User.objects.all()
-    form= f.exclude(id=pk)
-    # follow_count= User.objects.get(pk=id)
-    # f_count= follow_count.filter().count()
-
-    # following_count= Follow.objects.all()
-    # fo_count=following_count.count()
-    cont={'form':form}
+   
+ 
+    form1= User.objects.get(id=pk)
+    is_follow_this_user=False        
+    print(form1)
+    form= User.objects.exclude(id=pk)
+    cont={'form':form,'form1':form1}
     
     
     return render(request,'userprofile.html',cont)
 
-class followdoneview(View):
-    def post(self,request):
-        follow_id= request.POST.get('followed_user_id')
+
 
 
 def userhomeside(request):
+   
     return render(request,'userhomeside.html')   
 
 
 def userdyanmicprofile(request,pk):
 
    
-    fr = User.objects.filter(id=pk)
-    f=fr.values_list('username','email','first_name','last_name')
-    print(f)
-    cont={'f':f}
+    fr = User.objects.exclude(id=pk)
+  
+    print(fr)
+    cont={'fr':fr}
     return render (request,'userdyanmicprofile.html',cont) 
 
-
-
-def followUser(request,uname):
+def followToggle(request,uname):
     pass
+
+
+class followdoneview(View):
+    def post(self,request):
+        follower_id= request.POST.get('followed_user_id')
+        follower_id_obj = User.objects.get(pk=follower_id)
+        try:
+            Follow.objects.get(user=request.user,follow=follower_id_obj)
+        except Exception as e:
+            follow_obj= Follow.objects.create(follow=follower_id_obj) 
+
+        
+        return redirect(request.META.get('HTTP_REFERER'))
   
 
+class unfollow_done_view(View):
+    def post(self,request):
+        unfollower_id= request.POST.get('unfollowed_user_id')
+        unfollower_id_obj = User.objects.get(pk=unfollower_id)
+        try:
+            follo_obj=Follow.objects.get(user=request.user,follow=unfollower_id_obj)
+            follo_obj.delete()
+        except Exception as e:
+            pass
+
+        
+        return redirect(request.META.get('HTTP_REFERER'))
 
 
 
-
-
-def userhomeside(request):
-    return render(request,'userhomeside.html')    
+   
 

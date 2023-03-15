@@ -94,14 +94,16 @@
               </div>
                <div class="mt-3">
                 <table >
+                  {% if f %}
                     {% for i in f %}
                       <tr>
-                        <td>{{ i }}</td>
+                        <td>{{ i.user.username }}</td>
                       </tr>
                     {% endfor %}
+                    {% endif %}
                   </table>
                
-                <p class="fs-5 fw-bolder">{{f.first_name}}</p>
+                <p class="fs-5 fw-bolder">{{f.user.first_name}}</p>
                 <p class="fs-5 fw-bolder">{{f.last_name}}</p>
                 <p class="fs-5 fw-bolder">{{f.username}}</p>
                 <p class="fs-6 text-muted fw-bolder">{{f.email}}</p>

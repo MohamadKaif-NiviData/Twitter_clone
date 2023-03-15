@@ -14,10 +14,12 @@ urlpatterns = [
     path('profile/',views.ProfileTemplateView.as_view(),name='profile'),
     path('userhomeside',views.userhomeside,name='userhomeside'),
     path('userprofile<pk>',views.userprofile,name='userprofile'),
-    path('registration/login',views.ProfileTemplateView.as_view(),name='registration/login'),
+    path('templates/login',views.ProfileTemplateView.as_view(),name='templates/login'),
     path('userdyanmicprofile<pk>',views.userdyanmicprofile,name='userdyanmicprofile'),
-    path('followUser<str:uname>',views.followUser,name='followUser'),
-    path('followdone',views.followdoneview.as_view(),name='followdoneview'),
+    path('followToggle<str:uname>',views.followToggle,name='followToggle'),
+    path('follow/done',views.followdoneview.as_view(),name='follow_done_view'),
+    path('unfollow/done',views.unfollow_done_view.as_view(),name='unfollow_done_view'),
+
     
 
 ]

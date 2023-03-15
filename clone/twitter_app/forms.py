@@ -3,7 +3,7 @@ from pyexpat import model
 
 
 from django.forms import ModelForm, fields, widgets
-from django.contrib.auth.models import User
+from twitter_app.models import User
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 

@@ -14,26 +14,33 @@ class User(AbstractUser):
     Dob=models.DateField(null=True)
  
     objects= CustomeManagers()
+    @property   
+    def followerse_count(self):
+        count=self.follow_followed.count()
+        return count 
+
+    @property   
+    def followeing_count(self):
+        count=self.follow_follower.count()
+        
+        return count
+          
 
 
 class Follow(models.Model):
-    pass
-    # user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='follow_follower',editable=False)
-    # follow=models.ForeignKey(User,on_delete=models.CASCADE,related_name='follow_following')
-    # follow_on=models.DateTimeField(auto_now_add=True)
-    # def save(self,*args,**kwargs):
+    
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='follow_follower',editable=False,null=True)
+    follow=models.ForeignKey(User,on_delete=models.CASCADE,related_name='follow_followed',null=True)
+    follow_on=models.DateTimeField(auto_now_add=True,null=True)
+    def save(self,*args,**kwargs):
         
-    #     user = get_current_user()
-    #     if user and not user.pk:
-    #         user = None
-    #     if not self.pk:
-    #         self.user = user
-    #     super(Follow,self).save(*args,**kwargs)
-    # @property   
-    # def followerse_count(self):
-    #     count=10
-    #     return count
-
+        user = get_current_user()
+        if user and not user.pk:
+            user = None
+        if not self.pk:
+            self.user = user
+        super(Follow,self).save(*args,**kwargs)
+   
 
 
 
