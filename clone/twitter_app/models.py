@@ -22,7 +22,6 @@ class User(AbstractUser):
     @property   
     def followeing_count(self):
         count=self.follow_follower.count()
-        
         return count
           
 

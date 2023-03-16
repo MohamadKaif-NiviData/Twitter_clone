@@ -1,11 +1,13 @@
 
+from logging import PlaceHolder
 from pyexpat import model
+from statistics import mode
 
 
 from django.forms import ModelForm, fields, widgets
 from twitter_app.models import User
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 
 
 class UserRegisterForm(UserCreationForm):
@@ -13,9 +15,12 @@ class UserRegisterForm(UserCreationForm):
     
   class Meta:
       model = User
-      fields = ['username','first_name','last_name', 'email','password1','password2']
+      fields = ['username','first_name','last_name','img','email','password1','password2']
 
+class UserEditForm(UserChangeForm):
 
+        model=User
+        fields=['username','first_name','last_name','img','email']
 
 class user_model(ModelForm):
     class Meta:

@@ -3,9 +3,9 @@
 
 
 from django.views import View
+from django.views.generic.edit import UpdateView
 
-
-from .forms import user_model,UserRegisterForm
+from .forms import UserEditForm,UserRegisterForm
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 
@@ -18,7 +18,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 
 from django.contrib.auth.decorators import login_required
-
+from django.views import generic
 from django.views.generic import TemplateView
 from django.contrib.auth import get_user_model
 User=get_user_model()
@@ -106,13 +106,29 @@ def userhome(requset):
 
 
 def userprofile(request,pk):
-   
+    if request.method == "POST":
+            form=UserRegisterForm(data=request.POST,files=request.FILES)
+            print(form)
+            print('right1')
+            if form.is_valid():
+                print('right2')
+                form.save()
+                obj=form.instance
+                return render(request,"userprofile.html",{"obj":obj})
+       
  
     form1= User.objects.get(id=pk)
-    is_follow_this_user=False        
+    is_follow_this_user=False
+      
+    for Follow_user in request.user.follow_follower.all():
+            
+            if form1 == Follow_user.follow:
+                    is_follow_this_user=True   
+                    print(is_follow_this_user)
     print(form1)
     form= User.objects.exclude(id=pk)
-    cont={'form':form,'form1':form1}
+       
+    cont={'form':form,'form1':form1,'is_follow_this_user':is_follow_this_user}
     
     
     return render(request,'userprofile.html',cont)
@@ -142,6 +158,7 @@ class followdoneview(View):
     def post(self,request):
         follower_id= request.POST.get('followed_user_id')
         follower_id_obj = User.objects.get(pk=follower_id)
+        
         try:
             Follow.objects.get(user=request.user,follow=follower_id_obj)
         except Exception as e:
@@ -165,6 +182,14 @@ class unfollow_done_view(View):
         return redirect(request.META.get('HTTP_REFERER'))
 
 
+class useredit(UpdateView):
+    model=User
+    fields=['username','first_name','last_name','img','email']
+    
+    template_name='useredit.html'
+    success_url=reverse_lazy('userhome')
 
+    # def get_obj(self):
+    #     return self.request.user
    
 

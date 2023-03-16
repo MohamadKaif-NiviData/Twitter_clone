@@ -132,4 +132,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL='/userhome'
 AUTH_USER_MODEL='twitter_app.User'
-
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+    
+]
+MEDIA_ROOT= BASE_DIR / 'media'
