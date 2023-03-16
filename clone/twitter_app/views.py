@@ -106,15 +106,7 @@ def userhome(requset):
 
 
 def userprofile(request,pk):
-    if request.method == "POST":
-            form=UserRegisterForm(data=request.POST,files=request.FILES)
-            print(form)
-            print('right1')
-            if form.is_valid():
-                print('right2')
-                form.save()
-                obj=form.instance
-                return render(request,"userprofile.html",{"obj":obj})
+   
        
  
     form1= User.objects.get(id=pk)
