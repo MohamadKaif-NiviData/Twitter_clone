@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.contrib import admin
 from django.urls import path,include
 from twitter_app import views
@@ -16,12 +17,13 @@ urlpatterns = [
     path('userprofile<pk>',views.userprofile,name='userprofile'),
     
     path('templates/login',views.ProfileTemplateView.as_view(),name='templates/login'),
-    path('userdyanmicprofile<pk>',views.userdyanmicprofile,name='userdyanmicprofile'),
-    path('followToggle<str:uname>',views.followToggle,name='followToggle'),
+   
     path('follow/done',views.followdoneview.as_view(),name='follow_done_view'),
     path('unfollow/done',views.unfollow_done_view.as_view(),name='unfollow_done_view'),
     path('useredit<pk>',views.useredit.as_view(),name='useredit'),
-
+    path('user_converte_csv<pk>',views.user_converte_csv,name='user_converte_csv'),
+    path('user_converte_pdf',views.user_converte_pdf,name='user_converte_pdf'),
+    
 
     
 

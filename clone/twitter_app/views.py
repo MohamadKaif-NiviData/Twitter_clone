@@ -2,6 +2,7 @@
 
 
 
+
 from django.views import View
 from django.views.generic.edit import UpdateView
 
@@ -21,6 +22,11 @@ from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.views.generic import TemplateView
 from django.contrib.auth import get_user_model
+import csv
+from django.http import HttpResponse
+import io
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 User=get_user_model()
 # Create your views here.
 class ProfileTemplateView(TemplateView):
@@ -34,8 +40,39 @@ class UserRegister(CreateView):
   success_url = reverse_lazy('templates/login/')
   form_class = UserRegisterForm
 
+def user_converte_pdf(request):
+    follow= Follow.objects.all()
+
+    template_path = 'userconvertepdf'
+    context = {'myvar': 'this is your template context'}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # find the template and render it.
+    template = get_template('userconvertepdf')
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response, link_callback=link_callback)
+    # if error then show some funny view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
 
 
+
+def user_converte_csv(request,pk):
+    response = HttpResponse(content_type='text/csv')
+    response['content-disposition']='attachment;filename=followerse.csv'
+
+    writer = csv.writer(response)
+
+    follows= Follow.objects.all()
+    writer.writerow(['Followerse','Following'])
+    for f in follows:
+        writer.writerow([f.user,f.follow])
+    return response
 # class UserLogin(View):
    
 #     def get(self,request):
@@ -51,13 +88,6 @@ class UserRegister(CreateView):
 #         return render (request,'login.html')        
 
 
-# def userhome(requset):
-    # user_info=Tuser.objects.all()
-    # form = User.objects.all()
-    # f= form.exclude(id=id)
-    # cont={'form':f}
-
-# Create your views here.
 
 
 # def register(request):
@@ -97,12 +127,6 @@ def userhome(requset):
     return render(requset,'userhome.html')    
 
 
-# def tweets(request,pk):
-#     forms=Tuser_tweets.objects.get(id=pk)
-#     form = tweet_modelform(instance=forms)
-#     cont={'form':form}
-#     return render(request,'tweets.html',cont)     
-
 
 
 def userprofile(request,pk):
@@ -116,8 +140,8 @@ def userprofile(request,pk):
             
             if form1 == Follow_user.follow:
                     is_follow_this_user=True   
-                    print(is_follow_this_user)
-    print(form1)
+                    
+    
     form= User.objects.exclude(id=pk)
        
     cont={'form':form,'form1':form1,'is_follow_this_user':is_follow_this_user}
@@ -133,17 +157,8 @@ def userhomeside(request):
     return render(request,'userhomeside.html')   
 
 
-def userdyanmicprofile(request,pk):
 
-   
-    fr = User.objects.exclude(id=pk)
-  
-    print(fr)
-    cont={'fr':fr}
-    return render (request,'userdyanmicprofile.html',cont) 
 
-def followToggle(request,uname):
-    pass
 
 
 class followdoneview(View):

@@ -93,12 +93,12 @@
 
                 {% if request.user in form %}
 
-                <img src="{{form1.img}}" alt="" class="w-25 rounded-circle">
+                <img src="{{form1.img}}" alt="" class="img-fluid w-25 rounded-circle">
                 <p class="fs-5 fw-bolder">{{form1.first_name}}</p>
                 <p class="fs-5 fw-bolder">{{form1.last_name}}</p>
                 <p class="fs-5 fw-bolder">{{form1.username}}</p>
                 <p class="fs-6 text-muted fw-bolder">{{form1.email}}</p>
-                {% comment %} if Current user Already Follow anonymous User  {% endcomment %}
+               
                   {% if    not  is_follow_this_user %} 
                   <form action="{%url 'follow_done_view'  %}" method="POST">
                     {%csrf_token%}
@@ -125,15 +125,15 @@
                
                 {% else %}
 
-                <img src="{{ request.user.img }}" alt="" class="w-25 rounded-circle">
+                <img src="{{ request.user.img }}" alt="" class="img-fluid w-25 rounded-circle">
                 <p class="fs-5 fw-bolder">{{form1.first_name}}</p>
                 <p class="fs-5 fw-bolder">{{form1.last_name}}</p>
                 <p class="fs-5 fw-bolder">{{form1.username}}</p>
                 <p class="fs-6 text-muted fw-bolder">{{form1.email}}</p>
                 <a href="{% url 'useredit' user.id %}" class="text-decoration-none text-dark rounded-pill btn btn-light">Edit Profile</a>
-                
-              
-                
+               
+                <a href="{% url 'user_converte_csv' form1.id %}" class="text-decoration-none text-dark rounded-pill btn btn-light">CSV File</a>
+                <a href="{% url 'user_converte_pdf'  %}" class="text-decoration-none text-dark rounded-pill btn btn-light">PDF File</a>
                 {% endif %}
                 
                   
