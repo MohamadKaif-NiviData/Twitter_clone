@@ -43,18 +43,18 @@ class UserRegister(CreateView):
 def user_converte_pdf(request):
     follow= Follow.objects.all()
 
-    template_path = 'userconvertepdf'
-    context = {'myvar': 'this is your template context'}
+    template_path = 'userconvertepdf.html'
+    context = {'follow': follow}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    response['Content-Disposition'] = 'attachment; filename="followers_report.pdf"'
     # find the template and render it.
-    template = get_template('userconvertepdf')
+    template = get_template(template_path)
     html = template.render(context)
 
     # create a pdf
     pisa_status = pisa.CreatePDF(
-       html, dest=response, link_callback=link_callback)
+       html, dest=response)
     # if error then show some funny view
     if pisa_status.err:
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
