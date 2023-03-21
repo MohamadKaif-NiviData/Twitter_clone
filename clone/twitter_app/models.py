@@ -1,4 +1,5 @@
 
+from email.policy import default
 from django.db import models
 
 from django.contrib.auth.models import AbstractUser
@@ -8,10 +9,10 @@ from twitter_app.manager import CustomeManagers
 # Create your models here.
 
 class User(AbstractUser):
-    img=models.ImageField()
+    img=models.ImageField(default='user.png')
     email=models.EmailField(unique=True)
 
-    Dob=models.DateField(null=True)
+    
  
     objects= CustomeManagers()
     

@@ -28,17 +28,28 @@ import io
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 User=get_user_model()
-# Create your views here.
+# Create your views here. 
+
+
+# def user_profile_name(request,username):
+#     get_username= User.objects.get(username=username)
+    
+   
+#     cont={'get_username':get_username}
+#     return render(request,'user_profile_name.html',cont)
+
 class ProfileTemplateView(TemplateView):
     template_name='templates/login.html'
         
 def home(request):
     return render(request,'base.html')
 
-class UserRegister(CreateView):
-  template_name = 'register.html'
-  success_url = reverse_lazy('templates/login/')
+class UserRegister(generic.CreateView):
   form_class = UserRegisterForm
+  template_name = 'register.html'
+  success_url = reverse_lazy('login')
+ 
+  
 
 def user_converte_pdf(request):
     follow= Follow.objects.all()
@@ -47,7 +58,7 @@ def user_converte_pdf(request):
     context = {'follow': follow}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="followers_report.pdf"'
+    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
     # find the template and render it.
     template = get_template(template_path)
     html = template.render(context)
@@ -122,29 +133,27 @@ def user_converte_csv(request,pk):
     
 #     return render (request,'login.html')
 
-def userhome(requset):
+def user_home(requset):
   
     return render(requset,'userhome.html')    
 
 
 
 
-def userprofile(request,pk):
-   
-       
- 
-    form1= User.objects.get(id=pk)
+def user_profile(request,pk):
+
+    get_user_by_pk= User.objects.get(id=pk)
     is_follow_this_user=False
       
     for Follow_user in request.user.follow_follower.all():
             
-            if form1 == Follow_user.follow:
+            if get_user_by_pk == Follow_user.follow:
                     is_follow_this_user=True   
                     
     
-    form= User.objects.exclude(id=pk)
+    exclude_user_by_pk= User.objects.exclude(id=pk)
        
-    cont={'form':form,'form1':form1,'is_follow_this_user':is_follow_this_user}
+    cont={'exclude_user_by_pk':exclude_user_by_pk,'get_user_by_pk':get_user_by_pk,'is_follow_this_user':is_follow_this_user}
     
     
     return render(request,'userprofile.html',cont)
@@ -152,16 +161,12 @@ def userprofile(request,pk):
 
 
 
-def userhomeside(request):
+def user_home_side(request):
    
     return render(request,'userhomeside.html')   
 
 
-
-
-
-
-class followdoneview(View):
+class FollowDoneView(View):
     def post(self,request):
         follower_id= request.POST.get('followed_user_id')
         follower_id_obj = User.objects.get(pk=follower_id)
@@ -175,7 +180,7 @@ class followdoneview(View):
         return redirect(request.META.get('HTTP_REFERER'))
   
 
-class unfollow_done_view(View):
+class UnfollowDoneView(View):
     def post(self,request):
         unfollower_id= request.POST.get('unfollowed_user_id')
         unfollower_id_obj = User.objects.get(pk=unfollower_id)
@@ -189,7 +194,7 @@ class unfollow_done_view(View):
         return redirect(request.META.get('HTTP_REFERER'))
 
 
-class useredit(UpdateView):
+class UserEdit(UpdateView):
     model=User
     fields=['username','first_name','last_name','img','email']
     
