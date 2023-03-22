@@ -18,5 +18,5 @@ urlpatterns = [
     path('useredit<pk>',views.UserEdit.as_view(),name='useredit'),
     path('user_converte_csv<pk>',views.user_converte_csv,name='user_converte_csv'),
     path('user_converte_pdf',views.user_converte_pdf,name='user_converte_pdf'),
-    # path('<str:username>',views.user_profile_name,name='userprofile<uname>')
+    path('user/<str:username>',views.user_profile_name,name='userprofile<uname>')
 ]

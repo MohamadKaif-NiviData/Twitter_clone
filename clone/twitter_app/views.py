@@ -28,15 +28,15 @@ import io
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 User=get_user_model()
-# Create your views here. 
+# Create your views here. nivi_CGsR08K.jpeg
 
 
-# def user_profile_name(request,username):
-#     get_username= User.objects.get(username=username)
-    
+def user_profile_name(request,username):
+    get_username= User.objects.get(username=username)
    
-#     cont={'get_username':get_username}
-#     return render(request,'user_profile_name.html',cont)
+    cont={'get_username':get_username}
+    print(cont)
+    return render(request,'user_profile_name.html',cont)
 
 class ProfileTemplateView(TemplateView):
     template_name='templates/login.html'
