@@ -3,17 +3,21 @@
 
 
 
+from typing_extensions import Self
+from django import template
+from django import views
+from django.template import loader
 from django.views import View
 from django.views.generic.edit import UpdateView
 
-from .forms import UserEditForm,UserRegisterForm
+from .forms import UserEditForm,UserRegisterForm,UserTweetForm
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 
 from django.shortcuts import redirect, render,HttpResponseRedirect
 
 from .forms import user_model
-from twitter_app.models import User,Follow
+from twitter_app.models import User,Follow,tweet
 
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
@@ -23,7 +27,7 @@ from django.views import generic
 from django.views.generic import TemplateView
 from django.contrib.auth import get_user_model
 import csv
-from django.http import HttpResponse
+from django.http import HttpResponse, request
 import io
 from django.template.loader import get_template
 from xhtml2pdf import pisa
@@ -133,9 +137,13 @@ def user_converte_csv(request,pk):
     
 #     return render (request,'login.html')
 
-def user_home(requset):
-  
-    return render(requset,'userhome.html')    
+def user_home(response):
+    tweet_show = tweet.objects.all()
+    current_user = response.user
+    current_user_remove =User.objects.exclude(id=current_user.id)
+    
+    cont={'tweet_show':tweet_show,'current_user_remove':current_user_remove}
+    return render(response,'userhome.html',cont)    
 
 
 
@@ -204,4 +212,19 @@ class UserEdit(UpdateView):
     # def get_obj(self):
     #     return self.request.user
    
+def UserTweet(request):
+    template = loader.get_template('usertweet.html')
+    form_class=UserTweetForm
+    cont={'form':form_class}
+    return  HttpResponse(template.render(cont,request))
+
+class post_create_view(View):
+    form_class=UserTweetForm
+    def post(self,request):
+        form = self.form_class(request.POST,request.FILES)
+        
+        if form.is_valid():
+            form.save() 
+            return redirect('userhome')
+
 

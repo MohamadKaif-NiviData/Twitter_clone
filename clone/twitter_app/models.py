@@ -1,5 +1,6 @@
 
 from email.policy import default
+from statistics import mode
 from django.db import models
 
 from django.contrib.auth.models import AbstractUser
@@ -25,7 +26,10 @@ class User(AbstractUser):
     def followeing_count(self):
         count=self.follow_follower.count()
         return count
-          
+    @property
+    def tweet_count(self):
+        count=self.user_tweet.count()
+        return count      
 
 
 class Follow(models.Model):
@@ -40,8 +44,17 @@ class Follow(models.Model):
             self.user = user
         super(Follow,self).save(*args,**kwargs)
    
-
-
+class tweet(models.Model):
+    user = models.ForeignKey(User,related_name='user_tweet',on_delete=models.CASCADE,editable=False)
+    post = models.CharField(max_length=200,null=True,blank=True)
+    img=models.ImageField(null=True,default='Post',blank=True)
+    created_by = models.DateTimeField(auto_now_add=True)
+    def save(self,*args,**kwargs): 
+        user = get_current_user()
+        
+        if not self.pk:
+            self.user = user
+        super(tweet,self).save(*args,**kwargs)
 
   
 
