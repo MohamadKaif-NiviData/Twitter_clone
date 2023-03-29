@@ -76,7 +76,8 @@
             <a href="{% url 'usertweet' %}" class=" text-decoration-none fs-3  btn btn-info btn-lg rounded  ps-2 pe-2  text-light" >Tweet</a>
           </div>
          <div class="my-5 text-center">
-           <p class="text-center fs-3">{{user.username}}</p>
+           
+           <p class="text-center fs-3"><img src="{{ user.img.url }}" class="img-fluid rounded-pill me-3" style="height: 75px; width: 75px;" alt="">{{user.username}}</p>
            <p class="text-center fs-3 text-muted">{{user.email}}</p>
            <a href="{% url 'login' %}" class="btn btn-outline-danger ">Logout</a>
          </div>
@@ -114,7 +115,7 @@
   </div>
       
     
-      <img src="{{ t.img.url }}" class="img-fluid" alt=""  style="height: 300px;width: 500px;">
+      <img src="{{ t.img.url }}" class="img-fluid" alt=""  style="height: 250px;width: 500px;">
   
     </div>
             
@@ -140,9 +141,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="card mt-5 text-center rounded bg-light col-md-8 ">
+                <div class="card mt-5 text-center rounded bg-light col-md-10 ">
                 <p class="pt-3">Who to folow</p>
+                {% for c in current_user_remove %}
                 
+                <div class="fs-3">
+                  
+                  <p class="ms-2"><img src="{{ c.img.url }}" class="img-fluid ms-2 me-2 rounded-pill " style="height: 50px; width: 50px;" alt=""><a href="{% url 'userprofile' c.id %}" class="text-decoration-none text-black fs-2  ms-3"  title="click to see Profile">{{c.username}}</a></p> 
+                  <br> 
+                </div>
+                
+                
+                {% endfor %}
                 </div>
                 <div class="mt-5">
                 <p>

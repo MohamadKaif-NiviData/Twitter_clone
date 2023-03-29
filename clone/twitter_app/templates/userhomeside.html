@@ -188,7 +188,7 @@
                     {% for f in exclude_user_by_pk %}
                    
                      <!--"{%url 'follow_done_view'  %}" <input type="number" name="followed_user_id"  hidden value="{{ user.id }}" -->
-                      <p > <a href="{% url 'userprofile' f.id %}" class="text-decoration-none text-black fs-2"  title="click to see Profile">{{ f.username }} </a>  </p>
+                      <p > <img src="{{ f.img.url }}" class="img-fluid rounded-pill" style="height: 50px; width: 50px;"> <a href="{% url 'userprofile' f.id %}" class="text-decoration-none text-black fs-2"  title="click to see Profile">{{ f.username }} </a>  </p>
                    
                      <br>
                      
