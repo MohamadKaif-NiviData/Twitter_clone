@@ -31,7 +31,6 @@ class User(AbstractUser):
         count=self.user_tweet.count()
         return count      
 
-
 class Follow(models.Model):
     
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='follow_follower',editable=False,null=True)
@@ -44,21 +43,56 @@ class Follow(models.Model):
             self.user = user
         super(Follow,self).save(*args,**kwargs)
    
-class tweet(models.Model):
+class Tweet(models.Model):
     user = models.ForeignKey(User,related_name='user_tweet',on_delete=models.CASCADE,editable=False)
     post = models.CharField(max_length=200,null=True,blank=True)
     img=models.ImageField(null=True,default='Post',blank=True)
     created_by = models.DateTimeField(auto_now_add=True)
+    liked = models.ManyToManyField(User,default=None,blank=True,related_name='liked_user')
+    retweet = models.ManyToManyField(User,default=None,blank=True,related_name='retweet_user')
     def save(self,*args,**kwargs): 
         user = get_current_user()
         
         if not self.pk:
             self.user = user
-        super(tweet,self).save(*args,**kwargs)
+        super(Tweet,self).save(*args,**kwargs)
+    @property
+    def count_like(self):
+        count=self.liked.count()
+        return count 
+    @property
+    def count_retweet(self):
+        count = self.retweet.count()
+        return count
+LIKE_CHOICES = (
+        ('Like','Like'),
+        ('Unlike','Unlike')
+    )
+class Like(models.Model):  
+    tweet = models.ForeignKey(Tweet,on_delete=models.CASCADE,related_name='user_tweet')
+    user = models.ForeignKey(User,on_delete=models.CASCADE,editable=False,related_name='user_like')
+    value = models.CharField(choices=LIKE_CHOICES,default='Like',max_length=10)
+   
+    def save(self,*args,**kwargs): 
+        user = get_current_user()
+        
+        if not self.pk:
+            self.user = user
+        super(Like,self).save(*args,**kwargs)
 
-  
-
-
-
+LIKE_CHOICES = (
+        ('ReTweet','ReTweet'),
+        ('Remove','Remove')
+    )
+class ReTweet(models.Model):
+    tweet = models.ForeignKey(Tweet,on_delete=models.CASCADE,related_name='user_retweet')
+    user = models.ForeignKey(User,on_delete=models.CASCADE,editable=False,related_name='user_retweet')
+    value = models.CharField(choices=LIKE_CHOICES,default='ReTweet',max_length=20)
+    def save(self,*args,**kwargs): 
+        user = get_current_user()
+        
+        if not self.pk:
+            self.user = user
+        super(ReTweet,self).save(*args,**kwargs)
 # Create your models here.
 

@@ -1,8 +1,5 @@
 
-
-
-
-
+from audioop import reverse
 from typing_extensions import Self
 from django import template
 from django import views
@@ -17,7 +14,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect, render,HttpResponseRedirect
 
 from .forms import user_model
-from twitter_app.models import User,Follow,tweet
+from twitter_app.models import ReTweet, User,Follow,Tweet,Like,ReTweet
 
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
@@ -32,6 +29,7 @@ import io
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 User=get_user_model()
+tweet_id=0
 # Create your views here. nivi_CGsR08K.jpeg
 
 
@@ -136,14 +134,34 @@ def user_converte_csv(request,pk):
 
     
 #     return render (request,'login.html')
-
-def user_home(response):
-    tweet_show = tweet.objects.all()
-    current_user = response.user
-    current_user_remove =User.objects.exclude(id=current_user.id)
+class user_home(View):
+    template_name='userhome.html'
+    def get(self,request,*args,**kwargs):
+        user=request.user
+        
+        # retweet_show = ReTweet.objects.all()
+        tweet_show = Tweet.objects.all()
+        current_user = request.user
+        current_user_remove = User.objects.exclude(id=current_user.id)
+       
+        
+        cont={'tweet_show':tweet_show,'current_user_remove':current_user_remove,'user':user}
+        return render(request,self.template_name,context=cont) 
+# def user_home(response):
     
-    cont={'tweet_show':tweet_show,'current_user_remove':current_user_remove}
-    return render(response,'userhome.html',cont)    
+    
+    
+#     print(response.user,'from home user')
+#     # is_like_this_post=False
+#     # if tweet_id != 0:
+#     #     try:
+#     #         Like.objects.get(user=response.user,tweet_id=tweet_id)
+#     #         is_like_this_post=True   
+#     #     except Exception as e:
+#     #         is_like_this_post=False
+#     # print(is_like_this_post)        
+   
+#     return render(response,'userhome.html',cont)    
 
 
 
@@ -151,12 +169,18 @@ def user_home(response):
 def user_profile(request,pk):
 
     get_user_by_pk= User.objects.get(id=pk)
-    is_follow_this_user=False
+    
       
-    for Follow_user in request.user.follow_follower.all():
+    try:
+        Follow.objects.get(user=request.user,follow=get_user_by_pk)
+        is_follow_this_user=True   
+    except Exception as e:
+       is_follow_this_user=False
+
+    # for Follow_user in request.user.follow_follower.all():
             
-            if get_user_by_pk == Follow_user.follow:
-                    is_follow_this_user=True   
+    #         if get_user_by_pk == Follow_user.follow:
+                    
                     
     
     exclude_user_by_pk= User.objects.exclude(id=pk)
@@ -228,3 +252,74 @@ class post_create_view(View):
             return redirect('userhome')
 
 
+def post_like_view(request):
+    user = request.user
+    print(user)
+    if request.method == 'POST':
+        
+        tweet_id = request.POST.get('tweet_id')
+        print(tweet_id)
+        tweet_obj = Tweet.objects.get(id=tweet_id)
+        if user in tweet_obj.liked.all():
+            tweet_obj.liked.remove(user)
+        else:
+            tweet_obj.liked.add(user)
+
+        like,create = Like.objects.get_or_create(tweet_id=tweet_id,user=user) 
+
+        if not create:
+            if like.value == 'Like':
+                like.value = 'Unlike'
+            else:
+                like.value = 'Like'
+        like.save()
+
+
+    return redirect(request.META.get('HTTP_REFERER'))   
+
+
+def user_retweet(request):
+    user = request.user
+    if request.method == 'POST':
+        tweet_id = request.POST.get('retweet_id')
+        print(tweet_id)
+        tweet_obj = Tweet.objects.get(id=tweet_id)
+        print(tweet_obj)
+        if user in tweet_obj.retweet.all():
+            tweet_obj.retweet.remove(user)
+            print('y')
+        else:
+            tweet_obj.retweet.add(user)
+
+
+        retweet,create = ReTweet.objects.get_or_create(tweet_id=tweet_id,user=user)
+        if not create:
+            if retweet.value == 'ReTweet':
+                retweet.value = 'Remove'
+            else:
+                retweet.value = 'ReTweet'
+        retweet.save()
+    return redirect(request.META.get('HTTP_REFERER'))  
+
+# class post_like_view(View):
+    
+#     def post(self,request,*args,**kwargs):
+#        
+
+        
+        
+               
+
+
+
+
+# class post_unlike_view(View):
+#   def post(self,request,*args,**kwargs):
+#         global tweet_id
+#         tweet_id=kwargs.get('id')
+#         try:
+#             like_obj=Like.objects.get(tweet_id=tweet_id,user_id=request.user)
+#             like_obj.delete()
+#         except Exception as e:
+#            pass
+#         return redirect(request.META.get('HTTP_REFERER'))   

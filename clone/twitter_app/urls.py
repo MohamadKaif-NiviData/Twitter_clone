@@ -4,12 +4,12 @@ from django.urls import path,include
 from twitter_app import views
 
 from django.urls import path
-from twitter_app.views import UserRegister,ProfileTemplateView,FollowDoneView,UserEdit
+from twitter_app.views import UserRegister,ProfileTemplateView,FollowDoneView,UserEdit,user_home
 
 urlpatterns = [
     path('',views.home,name='home'),
     path('userregister',views.UserRegister.as_view(),name='register'),
-    path('userhome',views.user_home,name='userhome'),
+    path('userhome',views.user_home.as_view(),name='userhome'),
     path('userhomeside',views.user_home_side,name='userhomeside'),
     path('userprofile<pk>',views.user_profile,name='userprofile'),
     path('templates/login',views.ProfileTemplateView.as_view(),name='templates/login'),
@@ -21,5 +21,6 @@ urlpatterns = [
     path('user/<str:username>',views.user_profile_name,name='userprofile<uname>'),
     path('usertweet',views.UserTweet,name='usertweet'),
     path('post_create_view',views.post_create_view.as_view(),name='post_create_view'),
-   
+    path('post_like_view',views.post_like_view,name='post_like_view'),
+    path('user_retweet',views.user_retweet,name='user_retweet'),
 ]
