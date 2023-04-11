@@ -28,6 +28,7 @@ from django.http import HttpResponse, request
 import io
 from django.template.loader import get_template
 from xhtml2pdf import pisa
+from django.utils.translation import gettext as _
 User=get_user_model()
 tweet_id=0
 # Create your views here. nivi_CGsR08K.jpeg
@@ -137,15 +138,18 @@ def user_converte_csv(request,pk):
 class user_home(View):
     template_name='userhome.html'
     def get(self,request,*args,**kwargs):
+       
         user=request.user
         
         # retweet_show = ReTweet.objects.all()
         tweet_show = Tweet.objects.all()
+       
+        trans = _('User')
         current_user = request.user
         current_user_remove = User.objects.exclude(id=current_user.id)
        
         
-        cont={'tweet_show':tweet_show,'current_user_remove':current_user_remove,'user':user}
+        cont={'tweet_show':tweet_show,'current_user_remove':current_user_remove,'user':user,'trans':trans}
         return render(request,self.template_name,context=cont) 
 # def user_home(response):
     
