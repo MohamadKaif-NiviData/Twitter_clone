@@ -107,21 +107,25 @@
   </div>
   <hr>
   <div class="mt-3">
-    {% for rt in retweet_show %}
-   {{ rt }}
-    <h1>{{ rt.post }}</h1>
-    <img src="{{ rt.img.url }}" alt="">
-    {% endfor %}
+   
     </div>
    
-  {% for t in tweet_show %}
+  {% for t in tweet_show reversed %}
+
   <div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
     <div class="card-body">
       
+      {% if t.user in current_user_remove %}
+        {% if user not in t.retweet.all %}
+        <h3></h3>
+        {% else %}
+        <h3>You Retweeted </h3>
+        {% endif %}
+        {% endif %}
    
       <p class="fw-bolder"><img src="{{ t.user.img.url }}" alt="" style="height: 50px; width: 50px;" class="img-fluid rounded-pill"> {{ t.user }}</p>
       <h1>{{ t.post }}</h1>
-      {{ t.id }}
+     
       <img src="{{ t.img.url }}" class="img-fluid" style="height: 200px; width: 350px;" alt="">
       {% if user not in t.liked.all %}
          
