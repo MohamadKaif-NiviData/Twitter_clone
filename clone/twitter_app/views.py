@@ -328,12 +328,3 @@ def user_retweet(request):
 #         except Exception as e:
 #            pass
 #         return redirect(request.META.get('HTTP_REFERER'))   
-def check_language(request):
-    if request.method == "POST":
-        text = request.POST["translate"]
-        language = request.POST["language"]
-        translator= Translator(to_lang=language)
-        translation = translator.translate(text)
-        
-        return HttpResponse(translation)
-       
