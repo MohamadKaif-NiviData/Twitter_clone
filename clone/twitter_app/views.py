@@ -29,6 +29,7 @@ import io
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.utils.translation import gettext as _
+from translate import Translator
 User=get_user_model()
 tweet_id=0
 # Create your views here. nivi_CGsR08K.jpeg
@@ -144,12 +145,12 @@ class user_home(View):
         # retweet_show = ReTweet.objects.all()
         tweet_show = Tweet.objects.all()
        
-        trans = _('User')
+  
         current_user = request.user
         current_user_remove = User.objects.exclude(id=current_user.id)
        
         
-        cont={'tweet_show':tweet_show,'current_user_remove':current_user_remove,'user':user,'trans':trans}
+        cont={'tweet_show':tweet_show,'current_user_remove':current_user_remove,'user':user,'hello':_('Hello')}
         return render(request,self.template_name,context=cont) 
 # def user_home(response):
     
@@ -327,3 +328,12 @@ def user_retweet(request):
 #         except Exception as e:
 #            pass
 #         return redirect(request.META.get('HTTP_REFERER'))   
+def check_language(request):
+    if request.method == "POST":
+        text = request.POST["translate"]
+        language = request.POST["language"]
+        translator= Translator(to_lang=language)
+        translation = translator.translate(text)
+        
+        return HttpResponse(translation)
+       

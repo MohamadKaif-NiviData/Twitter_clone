@@ -81,8 +81,20 @@
            <p class="text-center fs-3"><img src="{{ user.img.url }}" class="img-fluid rounded-pill me-3" style="height: 75px; width: 75px;" alt="">{{user.username}}</p>
            <p class="text-center fs-3 text-muted">{{user.email}}</p>
            <a href="{% url 'login' %}" class="btn btn-outline-danger ">Logout</a>
+           <form method="post" action="check_language">
+            {% csrf_token %}
+            <input type="text" name="translate" required>
+            <br>
+            <select required name="language">
+                <option value="Hindi">Hindi</option>
+                <option value="Marathi">Marathi</option>
+                <option value="German">German</option>
+            </select>
+            <br>
+            <button type="submit">Translate</button>
+        </form>
          </div>
-    
+        
           </div>
           
 
@@ -110,8 +122,8 @@
   <div class="mt-3">
    
     </div>
-    {{ trans }}
-   {% trans "kaif" %}
+    {{ hello }}
+   {% trans " Hi I am kaif" %}
   {% for t in tweet_show reversed %}
 
   <div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
