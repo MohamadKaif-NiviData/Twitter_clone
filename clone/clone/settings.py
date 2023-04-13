@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import imp
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -110,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'es'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
@@ -139,9 +140,15 @@ STATICFILES_DIRS = [
 ]
 MEDIA_ROOT= BASE_DIR / 'media'
 MEDIA_URL='/media/'
+
 LANGUAGE_PATHS = [
-    BASE_DIR / 'locale',
-    BASE_DIR / 'clone/locale',
+    BASE_DIR / 'locale'
+  
    
 ]
+from django.utils.translation import gettext_lazy as _
 
+LANGUAGE=(
+    ('hi',_('Hindi')),
+    ('en',_('English')),
+)
