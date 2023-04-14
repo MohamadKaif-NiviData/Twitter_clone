@@ -25,6 +25,7 @@ urlpatterns = [
     path('post_create_view',views.post_create_view.as_view(),name='post_create_view'),
     path('post_like_view',views.post_like_view,name='post_like_view'),
     path('user_retweet',views.user_retweet,name='user_retweet'),
+    path('set_lenguage',views.set_lenguage,name='set_lenguage'),
     
 ]
 

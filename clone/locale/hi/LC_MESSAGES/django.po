@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-13 18:50+0530\n"
+"POT-Creation-Date: 2023-04-14 12:33+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,6 +30,38 @@ msgstr ""
 msgid "Enter Valid username"
 msgstr ""
 
-#: twitter_app/templates/userhome.html:115
+#: twitter_app/templates/translate_hindi.html:9
 msgid "How Are You"
 msgstr "आप कैसे हैं"
+
+#: twitter_app/templates/translate_hindi.html:17
+msgid "Home"
+msgstr "घर"
+
+#: twitter_app/templates/translate_hindi.html:23
+msgid "Explore"
+msgstr "अन्वेषण करना"
+
+#: twitter_app/templates/translate_hindi.html:29
+msgid "Notification"
+msgstr "अधिसूचना"
+
+#: twitter_app/templates/translate_hindi.html:35
+msgid "Messages"
+msgstr "संदेशों"
+
+#: twitter_app/templates/translate_hindi.html:42
+msgid "Bookmarks"
+msgstr "बुकमार्क"
+
+#: twitter_app/templates/translate_hindi.html:50
+msgid "Twitter Blue"
+msgstr "ट्विटर ब्लू"
+
+#: twitter_app/templates/translate_hindi.html:57
+msgid "Profile"
+msgstr "प्रोफ़ाइल"
+
+#: twitter_app/templates/translate_hindi.html:82
+msgid "Tweet"
+msgstr "ट्विट"

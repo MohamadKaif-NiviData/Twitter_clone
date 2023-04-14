@@ -1,5 +1,6 @@
 
 from audioop import reverse
+from django.utils import translation
 from typing_extensions import Self
 from django import template
 from django import views
@@ -313,9 +314,11 @@ def user_retweet(request):
 
         
         
-def set_lenguage(request,slug):
-     return render(request,'userhome.html')           
+def set_lenguage(request):
+    user_laanguage='hi'
+    translation.activate(user_laanguage)
 
+    return render(request,'translate_hindi.html')
 
 
 
