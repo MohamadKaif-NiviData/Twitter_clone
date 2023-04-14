@@ -6,7 +6,8 @@ from django import views
 from django.template import loader
 from django.views import View
 from django.views.generic.edit import UpdateView
-
+from django.urls import reverse
+from django.utils.translation import activate
 from .forms import UserEditForm,UserRegisterForm,UserTweetForm
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
@@ -138,19 +139,19 @@ def user_converte_csv(request,pk):
 #     return render (request,'login.html')
 class user_home(View):
     template_name='userhome.html'
-    def get(self,request,*args,**kwargs):
+    def get(self,request):
        
         user=request.user
         
         # retweet_show = ReTweet.objects.all()
         tweet_show = Tweet.objects.all()
-       
-  
+        
+        
         current_user = request.user
         current_user_remove = User.objects.exclude(id=current_user.id)
        
         
-        cont={'tweet_show':tweet_show,'current_user_remove':current_user_remove,'user':user,'hello':_('Hello')}
+        cont={'tweet_show':tweet_show,'current_user_remove':current_user_remove,'user':user}
         return render(request,self.template_name,context=cont) 
 # def user_home(response):
     
@@ -167,7 +168,6 @@ class user_home(View):
 #     # print(is_like_this_post)        
    
 #     return render(response,'userhome.html',cont)    
-
 
 
 
@@ -313,7 +313,8 @@ def user_retweet(request):
 
         
         
-               
+def set_lenguage(request,slug):
+     return render(request,'userhome.html')           
 
 
 

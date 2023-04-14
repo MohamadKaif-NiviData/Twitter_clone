@@ -111,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'hi'
 
 TIME_ZONE = 'UTC'
 
@@ -120,8 +120,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -141,14 +139,15 @@ STATICFILES_DIRS = [
 MEDIA_ROOT= BASE_DIR / 'media'
 MEDIA_URL='/media/'
 
-LANGUAGE_PATHS = [
+LOCALE_PATHS = [
     BASE_DIR / 'locale'
   
    
 ]
+print ("base dir path", BASE_DIR)
 from django.utils.translation import gettext_lazy as _
 
-LANGUAGE=(
+LANGUAGES=(
     ('hi',_('Hindi')),
     ('en',_('English')),
 )

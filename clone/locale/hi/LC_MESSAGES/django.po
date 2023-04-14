@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-13 11:30+0530\n"
+"POT-Creation-Date: 2023-04-13 18:50+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: clone/clone/settings.py:152
+
+#: clone/settings.py:151
 msgid "Hindi"
 msgstr ""
 
-#: clone/clone/settings.py:153
+#: clone/settings.py:152
 msgid "English"
 msgstr ""
+
+#: twitter_app/manager.py:8
+msgid "Enter Valid username"
+msgstr ""
+
+#: twitter_app/templates/userhome.html:115
+msgid "How Are You"
+msgstr "आप कैसे हैं"
