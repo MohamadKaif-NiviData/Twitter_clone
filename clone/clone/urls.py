@@ -22,7 +22,7 @@ from django.utils.translation import gettext_lazy as _
 from twitter_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    
+    path('',include('twitter_app.urls')),
     path('templates/',include('django.contrib.auth.urls'))
 
   

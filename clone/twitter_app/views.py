@@ -260,11 +260,11 @@ class post_create_view(View):
 
 def post_like_view(request):
     user = request.user
-    print(user)
+  
     if request.method == 'POST':
         
         tweet_id = request.POST.get('tweet_id')
-        print(tweet_id)
+       
         tweet_obj = Tweet.objects.get(id=tweet_id)
         if user in tweet_obj.liked.all():
             tweet_obj.liked.remove(user)
@@ -293,7 +293,7 @@ def user_retweet(request):
         print(tweet_obj)
         if user in tweet_obj.retweet.all():
             tweet_obj.retweet.remove(user)
-            print('y')
+            
         else:
             tweet_obj.retweet.add(user)
 
@@ -315,10 +315,22 @@ def user_retweet(request):
         
         
 def set_lenguage(request):
-    user_laanguage='hi'
-    translation.activate(user_laanguage)
+    
+    cur_language = translation.get_language()  
+   
+    data = request.POST.get('language')
+    print(data)
+    if data == 'en':
+        user_language='en'
+        translation.activate(user_language)
+        return render(request,'userhome.html')
+    else:
+        user_language='hi'
+        translation.activate(user_language)
+        return render(request,'translate_hindi.html')
+   
 
-    return render(request,'translate_hindi.html')
+    
 
 
 

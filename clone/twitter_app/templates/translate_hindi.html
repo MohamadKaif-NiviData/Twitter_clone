@@ -60,21 +60,25 @@
     
               </div>
               {% get_current_language as LANGUAGE_CODE %}
-             
+            
               <div class="text-center fs-3">
-                <form action="{% url 'set_lenguage' %}" method="POST">
+                <form action="{% url 'set_lenguage'   %}" method="POST">
+                    <input name="next" type="hidden" value="{{ redirect_to }}">
                   {% csrf_token %}
+                  
                   <select name="language" id="" >
                     {% get_available_languages as LANGUAGES %}
                     {% get_language_info_list for LANGUAGES as languages %}
                     {% for language in languages  %}
-                    <option value="{{ language.code }} " {% if language.code == LANGUAGE_CODE %} selected {% endif %}>{{ language.name_local }}  {{ language.code }}</option>
-                    
+                    <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                        {{ language.name_local }} ({{ language.code }})
+                    </option>
+                   
                     {% endfor %}
                     
                       
                     </select>
-                    <input type="submit" />
+                    <input type="submit" value="GO" />
                 </form>
                 <p>
               </div>
@@ -91,3 +95,6 @@
         
               </div>
 {% endblock start %}
+{% block cont %}
+
+{% endblock cont %}
