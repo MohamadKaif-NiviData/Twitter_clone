@@ -144,9 +144,9 @@ LOCALE_PATHS = [
   
    
 ]
-print ("base dir path", BASE_DIR)
-from django.utils.translation import gettext_lazy as _
 
+from django.utils.translation import gettext_lazy as _
+LANGUAGE_CODE = 'en'
 LANGUAGES=[
     ('hi',_('Hindi')),
     ('en',_('English')),

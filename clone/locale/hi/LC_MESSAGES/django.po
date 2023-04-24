@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-21 12:38+0000\n"
+"POT-Creation-Date: 2023-04-24 05:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,6 +60,9 @@ msgid "Profile"
 msgstr "प्रोफ़ाइल"
 
 #: twitter_app/templates/userhome.html:99
+#: twitter_app/templates/userhome.html:180
+#: twitter_app/templates/userhome.html:190
+#: twitter_app/templates/userhome.html:194
 msgid "Tweet"
 msgstr "ट्विट"
 
@@ -74,6 +77,28 @@ msgstr "आपके लिए"
 #: twitter_app/templates/userhome.html:126
 msgid "Following"
 msgstr "अगले"
+
+#: twitter_app/templates/userhome.html:162
+msgid "Like"
+msgstr "पसंद"
+
+#: twitter_app/templates/userhome.html:171
+msgid "UnLike"
+msgstr "भिन्न"
+
+#: twitter_app/templates/userhome.html:180
+#: twitter_app/templates/userhome.html:190
+#: twitter_app/templates/userhome.html:194
+msgid "Re"
+msgstr "दोबारा"
+
+#: twitter_app/templates/userhome.html:186
+msgid "Remove"
+msgstr "निकालना"
+
+#: twitter_app/templates/userhome.html:192
+msgid "Likes"
+msgstr "को यह पसंद है"
 
 #: twitter_app/templates/userhome.html:210
 msgid "search"
@@ -108,8 +133,27 @@ msgid "Ads info More"
 msgstr "विज्ञापन की जानकारी अधिक"
 
 #: twitter_app/templates/userhome.html:245
-msgid " © 2023 Twitter, Inc."
+#, fuzzy
+#| msgid " © 2023 Twitter, Inc."
+msgid " © 2023 Twitter, Inc. "
 msgstr "© 2023 ट्विटर, इंक"
+
+#, fuzzy
+#~| msgid "Tweet"
+#~ msgid "Tweets"
+#~ msgstr "ट्वीट्स"
+
+#, fuzzy
+#~ msgid "ReTweet"
+#~ msgstr "रीट्वीट"
+
+#, fuzzy
+#~ msgid "Retweets"
+#~ msgstr "रीट्वीट"
+
+#, fuzzy
+#~ msgid "Retweet"
+#~ msgstr "रीट्वीट"
 
 #, fuzzy
 #~ msgid "For You"
