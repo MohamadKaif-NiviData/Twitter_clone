@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-14 12:33+0530\n"
+"POT-Creation-Date: 2023-04-21 12:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,38 +30,90 @@ msgstr ""
 msgid "Enter Valid username"
 msgstr ""
 
-#: twitter_app/templates/translate_hindi.html:9
-msgid "How Are You"
-msgstr "आप कैसे हैं"
-
-#: twitter_app/templates/translate_hindi.html:17
+#: twitter_app/templates/userhome.html:27
+#: twitter_app/templates/userhome.html:115
 msgid "Home"
 msgstr "घर"
 
-#: twitter_app/templates/translate_hindi.html:23
+#: twitter_app/templates/userhome.html:33
 msgid "Explore"
 msgstr "अन्वेषण करना"
 
-#: twitter_app/templates/translate_hindi.html:29
+#: twitter_app/templates/userhome.html:39
 msgid "Notification"
 msgstr "अधिसूचना"
 
-#: twitter_app/templates/translate_hindi.html:35
+#: twitter_app/templates/userhome.html:45
 msgid "Messages"
 msgstr "संदेशों"
 
-#: twitter_app/templates/translate_hindi.html:42
+#: twitter_app/templates/userhome.html:52
 msgid "Bookmarks"
 msgstr "बुकमार्क"
 
-#: twitter_app/templates/translate_hindi.html:50
+#: twitter_app/templates/userhome.html:60
 msgid "Twitter Blue"
 msgstr "ट्विटर ब्लू"
 
-#: twitter_app/templates/translate_hindi.html:57
+#: twitter_app/templates/userhome.html:67
 msgid "Profile"
 msgstr "प्रोफ़ाइल"
 
-#: twitter_app/templates/translate_hindi.html:82
+#: twitter_app/templates/userhome.html:99
 msgid "Tweet"
 msgstr "ट्विट"
+
+#: twitter_app/templates/userhome.html:105
+msgid "Logout"
+msgstr "लॉग आउट"
+
+#: twitter_app/templates/userhome.html:121
+msgid "ForYou"
+msgstr "आपके लिए"
+
+#: twitter_app/templates/userhome.html:126
+msgid "Following"
+msgstr "अगले"
+
+#: twitter_app/templates/userhome.html:210
+msgid "search"
+msgstr "खोज"
+
+#: twitter_app/templates/userhome.html:216
+msgid "What`s happening"
+msgstr "क्या हो रहा है"
+
+#: twitter_app/templates/userhome.html:221
+msgid "Who to follow"
+msgstr "किसका अनुगमन करना है"
+
+#: twitter_app/templates/userhome.html:236
+msgid "Terms of Service"
+msgstr "सेवा की शर्तें"
+
+#: twitter_app/templates/userhome.html:238
+msgid "Privacy Policy"
+msgstr "गोपनीयता नीति"
+
+#: twitter_app/templates/userhome.html:240
+msgid "Cookie Policy"
+msgstr "कूकी नीति"
+
+#: twitter_app/templates/userhome.html:242
+msgid "Accessibility"
+msgstr "सरल उपयोग"
+
+#: twitter_app/templates/userhome.html:244
+msgid "Ads info More"
+msgstr "विज्ञापन की जानकारी अधिक"
+
+#: twitter_app/templates/userhome.html:245
+msgid " © 2023 Twitter, Inc."
+msgstr "© 2023 ट्विटर, इंक"
+
+#, fuzzy
+#~ msgid "For You"
+#~ msgstr "आपके लिए"
+
+#~ msgid "Welcome"
+#~ msgstr "स्वागत"

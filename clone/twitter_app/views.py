@@ -1,5 +1,6 @@
 
 from audioop import reverse
+
 from django.utils import translation
 from typing_extensions import Self
 from django import template
@@ -48,6 +49,7 @@ class ProfileTemplateView(TemplateView):
     template_name='templates/login.html'
         
 def home(request):
+    
     return render(request,'base.html')
 
 class UserRegister(generic.CreateView):
@@ -315,21 +317,31 @@ def user_retweet(request):
         
         
 def set_lenguage(request):
-    
-    cur_language = translation.get_language()  
-   
-    data = request.POST.get('language')
-    print(data)
-    if data == 'en':
+    if request.method == 'POST' :
+        language_code = request.POST.get('language')
+        print(language_code)
+        if language_code == 'en':
+            user_language='en'
+            translation.activate(user_language)
+            return redirect(request.META.get('HTTP_REFERER'))  
+        else:
+            user_language='hi'
+            translation.activate(user_language)
+            tweet_show = Tweet.objects.all()
+            cont= {'tweet_show':tweet_show}
+            return render(request,'translate_hindi.html',cont)
+    else:
+
+       
         user_language='en'
         translation.activate(user_language)
         return render(request,'userhome.html')
-    else:
-        user_language='hi'
-        translation.activate(user_language)
-        return render(request,'translate_hindi.html')
    
-
+def set_lenguage_en(request):
+    # language_code = request.POST.get('language')
+    # user_language='en'
+    # translation.activate(user_language)
+    return render(request,'userhome.html')
     
 
 
