@@ -154,9 +154,15 @@
         {% endif %}
    
       <p class="fw-bolder"><img src="{{ t.user.img.url }}" alt="" style="height: 50px; width: 50px;" class="img-fluid rounded-pill"> {{ t.user }}</p>
+      {% if t.post %}
       <h3>{{ t.post }}</h3>
      
+      {% endif %} 
+      
+      {% if t.img %}
       <img src="{{ t.img.url }}" class="img-fluid" style="height: 200px; width: 350px;" alt="">
+      {% endif %}
+
       {% if user not in t.liked.all %}
          
           <form action=" {% url 'post_like_view'%} " method="POST">

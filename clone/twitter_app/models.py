@@ -1,6 +1,5 @@
 
-from email.policy import default
-from statistics import mode
+
 from django.db import models
 
 from django.contrib.auth.models import AbstractUser
@@ -46,7 +45,7 @@ class Follow(models.Model):
 class Tweet(models.Model):
     user = models.ForeignKey(User,related_name='user_tweet',on_delete=models.CASCADE,editable=False)
     post = models.CharField(max_length=200,null=True,blank=True)
-    img=models.ImageField(null=True,default='Post',blank=True)
+    img=models.ImageField( null=True,blank=True)
     created_by = models.DateTimeField(auto_now_add=True)
     liked = models.ManyToManyField(User,default=None,blank=True,related_name='liked_user')
     retweet = models.ManyToManyField(User,default=None,blank=True,related_name='retweet_user')
