@@ -16,7 +16,7 @@ class UserRegisterForm(UserCreationForm):
   class Meta:
       model = User
       fields = ['username','first_name','last_name','email','password1','password2']
-
+      widgets={forms.CharField()}
 class UserEditForm(UserChangeForm):
 
         model=User
@@ -30,8 +30,9 @@ class UserTweetForm(forms.ModelForm):
     class Meta:
         model=Tweet
         fields=['post','img']
-        widgets={'post':forms.Textarea(attrs={'class':'form-control','placeholder':'Whats happening?'})}
-
+        widgets={'post':forms.Textarea(attrs={'class':'form-control','placeholder':'Whats happening?','id':'txtpost','class':'text',})}
+       
+      
 # class tweet_modelform(ModelForm):
 #     class Meta:
 #         model=Tuser_tweets

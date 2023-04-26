@@ -1,20 +1,18 @@
 {% extends 'userhome.html' %}
 {% load crispy_forms_tags%}
 {% block cont %}
+{% load static  %}
 <div class=" mt-5">
     <form action="{% url 'post_create_view'%}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-    {{form | crispy }}
-        <!-- <input type="text" class="form-control" placeholder="What`s happning">
-        <input type="file"> -->
+       Post {{ form.post }}
+       <input type="file"id="file_input" value={{ form.img }}  
 
-     
-        
-        <input type="submit" value="Post" class="btn btn-outline-primary mt-5 ms-2">
+        <input type="submit" id="btnsubmit" value="Post"  class="button btn btn-outline-primary mt-5 ms-2 ">
       
     </form>
 
     
 </div>
-
+<script src="{% static 'disable.js' %}"></script>
 {% endblock cont %}
