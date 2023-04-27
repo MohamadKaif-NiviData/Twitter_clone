@@ -11,12 +11,15 @@
     btn.disabled = false  
    }
 })
-    post.addEventListener("keyup",(e)=>{
+    post.addEventListener("input",(e)=>{
         console.log(e.currentTarget.value);
-        const value=e.currentTarget.value
-        if(value === "" ){
+        const Value=e.currentTarget.value
+       
+        
+        if(Value === "" || Value.trim() == "" ){
             btn.disabled = true
         }else{
             btn.disabled = false
         }
+
     } );
