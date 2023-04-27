@@ -30,7 +30,7 @@ class UserTweetForm(forms.ModelForm):
     class Meta:
         model=Tweet
         fields=['post','img']
-        widgets={'post':forms.Textarea(attrs={'class':'form-control','placeholder':'Whats happening?','id':'txtpost','class':'text',})}
+        widgets={'post':forms.Textarea(attrs={'class':'form-control','placeholder':'Whats happening?','id':'txtpost','class':'text','autocomplete':'off'})}
        
       
 # class tweet_modelform(ModelForm):

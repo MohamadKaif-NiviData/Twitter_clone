@@ -5,10 +5,19 @@
 <div class=" mt-5">
     <form action="{% url 'post_create_view'%}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-       Post {{ form.post }}
-       <input type="file"id="file_input" value={{ form.img }}  
+        <div class="text-start mt-2">
+            Post {{ form.post }}
+        </div>
+       
+       <div class="text-start mt-2">
+        <input type="file"id="file_input" value={{ form.img }}  
+       </div>
+       
 
-        <input type="submit" id="btnsubmit" value="Post"  class="button btn btn-outline-primary mt-5 ms-2 ">
+       <div class="text-start mt-3">
+        <input disabled type="submit" id="btnsubmit" value="Post"  class=" btn btn-primary mt-5 ms-2 ">
+       </div>
+        
       
     </form>
 
