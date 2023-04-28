@@ -343,7 +343,11 @@ def set_lenguage_en(request):
     # translation.activate(user_language)
     return render(request,'userhome.html')
     
-
+def Delete_post(request):
+    post_id = request.POST.get('post_id')
+    del_post = Tweet.objects.get(id=post_id)
+    del_post.delete()
+    return redirect(request.META.get('HTTP_REFERER'))   
 
 
 # class post_unlike_view(View):

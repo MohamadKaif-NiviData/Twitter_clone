@@ -13,8 +13,6 @@ class User(AbstractUser):
     img=models.ImageField(default='user.png')
     email=models.EmailField(unique=True)
 
-    
- 
     objects= CustomeManagers()
     
     @property   
