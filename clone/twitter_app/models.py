@@ -1,6 +1,6 @@
 
 
-from email.policy import default
+
 from django.db import models
 
 from django.contrib.auth.models import AbstractUser
@@ -39,10 +39,8 @@ class Follow(models.Model):
         return str(self.user)
 
     def save(self,*args,**kwargs): 
-        user = get_current_user()
-        
-        if not self.pk:
-            self.user = user
+        user = get_current_user() 
+        self.user = user
         super(Follow,self).save(*args,**kwargs)
    
 class Tweet(models.Model):
