@@ -314,7 +314,10 @@ def user_retweet(request):
 #     def post(self,request,*args,**kwargs):
 #        
 
-        
+def logout_user(request):
+
+    logout(request)
+    return redirect('login')      
         
 def set_lenguage(request):
     if request.method == 'POST' :

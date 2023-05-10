@@ -26,8 +26,8 @@ urlpatterns = [
     path('post_like_view',views.post_like_view,name='post_like_view'),
     path('user_retweet',views.user_retweet,name='user_retweet'),
     path('set_lenguage',views.set_lenguage,name='set_lenguage'),
-    path('Delete_post',views.Delete_post,name='Delete_post')
-    
+    path('Delete_post',views.Delete_post,name='Delete_post'),
+    path('logout',views.logout_user,name='logout'),
 ]
 
 
