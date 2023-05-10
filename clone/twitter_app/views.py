@@ -21,6 +21,7 @@ from twitter_app.models import ReTweet, User,Follow,Tweet,Like,ReTweet
 
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.decorators import login_required
 from django.views import generic
@@ -34,7 +35,7 @@ from xhtml2pdf import pisa
 from django.utils.translation import gettext as _
 from translate import Translator
 User=get_user_model()
-tweet_id=0
+
 # Create your views here. nivi_CGsR08K.jpeg
 
 
@@ -140,8 +141,10 @@ def user_converte_csv(request,pk):
 
     
 #     return render (request,'login.html')
+
 class user_home(View):
     template_name='userhome.html'
+   
     def get(self,request):
        
         user=request.user
@@ -173,7 +176,7 @@ class user_home(View):
 #     return render(response,'userhome.html',cont)    
 
 
-
+@login_required(login_url='login')
 def user_profile(request,pk):
 
     get_user_by_pk= User.objects.get(id=pk)
