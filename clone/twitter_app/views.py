@@ -176,7 +176,7 @@ class user_home(View):
 #     return render(response,'userhome.html',cont)    
 
 
-@login_required(login_url='login')
+
 def user_profile(request,pk):
 
     get_user_by_pk= User.objects.get(id=pk)
