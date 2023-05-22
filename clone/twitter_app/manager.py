@@ -16,6 +16,7 @@ class CustomeManagers(BaseUserManager):
         extra_feilds.setdefault('is_active',True)
         extra_feilds.setdefault('is_staff',True)
         extra_feilds.setdefault('is_superuser',True)
+        extra_feilds.setdefault('is_admin',True)
 
         if extra_feilds.get('is_staff') is not True:
             raise ValueError('not valid')

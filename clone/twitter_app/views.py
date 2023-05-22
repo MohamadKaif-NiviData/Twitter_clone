@@ -54,7 +54,7 @@ def home(request):
     return render(request,'base.html')
 
 class UserRegister(generic.CreateView):
-  form_class = UserRegisterForm
+  form_class = UserRegisterForm 
   template_name = 'register.html'
   success_url = reverse_lazy('login')
  
@@ -213,7 +213,7 @@ class FollowDoneView(View):
     def post(self,request):
         follower_id= request.POST.get('followed_user_id')
         follower_id_obj = User.objects.get(pk=follower_id)
-        
+        print(follower_id_obj,'id with info')
         try:
             Follow.objects.get(user=request.user,follow=follower_id_obj)
         except Exception as e:
@@ -342,12 +342,7 @@ def set_lenguage(request):
         user_language='en'
         translation.activate(user_language)
         return render(request,'userhome.html')
-   
-def set_lenguage_en(request):
-    # language_code = request.POST.get('language')
-    # user_language='en'
-    # translation.activate(user_language)
-    return render(request,'userhome.html')
+
     
 def Delete_post(request):
     post_id = request.POST.get('post_id')
