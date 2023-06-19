@@ -34,6 +34,7 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.utils.translation import gettext as _
 from translate import Translator
+from django.contrib import  messages
 User=get_user_model()
 
 # Create your views here. nivi_CGsR08K.jpeg
@@ -47,8 +48,9 @@ def user_profile_name(request,username):
     return render(request,'user_profile_name.html',cont)
 
 class ProfileTemplateView(TemplateView):
+
     template_name='templates/login.html'
-        
+
 def home(request):
     
     return render(request,'base.html')
@@ -56,8 +58,9 @@ def home(request):
 class UserRegister(generic.CreateView):
   form_class = UserRegisterForm 
   template_name = 'register.html'
+
   success_url = reverse_lazy('login')
- 
+
   
 
 def user_converte_pdf(request):
@@ -107,7 +110,11 @@ def user_converte_csv(request,pk):
 #             return render(request,'userhome.html')
 #         return render (request,'login.html')        
 
-
+def search(request):
+    get_user_info = request.post['textuser']
+    print(get_user_info)
+    cont={'get_user_info':get_user_info}
+    return render(request,'user_home.html',cont)
 
 
 # def register(request):
@@ -144,7 +151,7 @@ def user_converte_csv(request,pk):
 
 class user_home(View):
     template_name='userhome.html'
-   
+
     def get(self,request):
        
         user=request.user

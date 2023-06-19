@@ -28,6 +28,7 @@ urlpatterns = [
     path('set_lenguage',views.set_lenguage,name='set_lenguage'),
     path('Delete_post',views.Delete_post,name='Delete_post'),
     path('logout_user',views.logout_user,name='logout_user'),
+    path('search',views.search,name='search'),
 ]
 
 
