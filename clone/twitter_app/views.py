@@ -13,12 +13,14 @@ from django.utils.translation import activate
 from .forms import UserEditForm,UserRegisterForm,UserTweetForm
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
-
+from .serializer import  LikeSerializer,TweetSerializer,ReTweetSerializer
 from django.shortcuts import redirect, render,HttpResponseRedirect
-
+from rest_framework import  viewsets
 from .forms import user_model
+from rest_framework import generics
 from twitter_app.models import ReTweet, User,Follow,Tweet,Like,ReTweet
-
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
@@ -110,11 +112,7 @@ def user_converte_csv(request,pk):
 #             return render(request,'userhome.html')
 #         return render (request,'login.html')        
 
-def search(request):
-    get_user_info = request.post['textuser']
-    print(get_user_info)
-    cont={'get_user_info':get_user_info}
-    return render(request,'user_home.html',cont)
+
 
 
 # def register(request):
@@ -272,18 +270,15 @@ class post_create_view(View):
 
 def post_like_view(request):
     user = request.user
-  
     if request.method == 'POST':
-        
         tweet_id = request.POST.get('tweet_id')
-       
         tweet_obj = Tweet.objects.get(id=tweet_id)
         if user in tweet_obj.liked.all():
             tweet_obj.liked.remove(user)
         else:
             tweet_obj.liked.add(user)
 
-        like,create = Like.objects.get_or_create(tweet_id=tweet_id,user=user) 
+        like,create = Like.objects.get_or_create(tweet_id=tweet_id,user=user)
 
         if not create:
             if like.value == 'Like':
@@ -368,3 +363,104 @@ def Delete_post(request):
 #         except Exception as e:
 #            pass
 #         return redirect(request.META.get('HTTP_REFERER'))   
+
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from django.shortcuts import get_object_or_404
+
+@api_view(['POST'])
+def Post(request):
+    print('1')
+    user = request.user
+    user_id = request.user.id
+
+    tweet_id = request.data["tweet"]
+
+    print(request.data)
+    print(tweet_id,'t_id')
+    tweet_obj = Tweet.objects.get(pk=tweet_id)
+    print(tweet_obj.liked.all() ,'this is all data')
+    if user in tweet_obj.liked.all():
+            print('remove call')
+
+            tweet_obj.liked.remove(user)
+            print(tweet_obj.liked.all(),'after remove call')
+    else:
+            print('add call')
+
+            tweet_obj.liked.add(user)
+            print(tweet_obj.liked.all(),'after add call')
+
+    like,create = Like.objects.get_or_create(tweet=tweet_obj, user=user)
+    print(like,'like')
+    print(create,'create')
+    if not create:
+        if like.value == 'Like':
+            like.value = 'Unlike'
+            print(like.value,'when not create')
+        else:
+            like.value = 'Like'
+            print(like.value,'when create')
+    like.save()
+
+    ser = LikeSerializer(data=request.data)
+
+    if ser.is_valid():
+
+            print('mission pass')
+            return Response(ser.data)
+    else:
+            return HttpResponse('<h1>Not Accepted data Please check again!</h1>')
+@api_view(['GET','POST'])
+def LikeList(request):
+
+    like_list = Like.objects.all()
+    if like_list:
+        like_obj = LikeSerializer(like_list,many=True)
+        return  Response(like_obj.data)
+@api_view(['POST'])
+def Retweet_Post(request):
+    user = request.user
+    user_id = user.id
+    tweet_id = request.data["tweet"]
+    tweet_obj = Tweet.objects.get(id=tweet_id)
+    if user in tweet_obj.retweet.all():
+        tweet_obj.retweet.remove(user)
+    else:
+        tweet_obj.retweet.add(user)
+    ser = ReTweetSerializer(data=request.data)
+    if ser.is_valid():
+        ser.save()
+        return Response(ser.data)
+    else:
+        return HttpResponse('<h1>Not Accepted data Please check again!</h1>')
+
+@api_view(['GET'])
+def Retweet_List(request):
+    queryset = ReTweet.objects.all()
+    seriallizer_class = ReTweetSerializer(queryset,many=True)
+    return  Response(seriallizer_class.data)
+
+
+@api_view(['DELETE'])
+def delete_post(request,id):
+    Tweet_id = Tweet.objects.get(id=id)
+    tweet_obj = Tweet_id.delete()
+    return HttpResponse('data Delete')
+
+
+@api_view(['POST'])
+def Tweet_Post(request):
+    ser = TweetSerializer(data=request.data)
+    if ser.is_valid():
+        ser.save()
+        return Response(ser.data)
+    else:
+        return HttpResponse('data not correct')
+
+@api_view(['GET'])
+def Tweet_List(request):
+    tweet_list = Tweet.objects.all()
+    if tweet_list:
+        serializer_class = TweetSerializer(tweet_list,many=True)
+        return Response(serializer_class.data)

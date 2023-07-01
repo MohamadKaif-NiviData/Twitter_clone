@@ -14,7 +14,7 @@ class User(AbstractUser):
     email=models.EmailField(unique=True)
 
     objects= CustomeManagers()
-    
+
     @property   
     def followerse_count(self):
         count=self.follow_followed.count()
@@ -56,6 +56,8 @@ class Tweet(models.Model):
         if not self.pk:
             self.user = user
         super(Tweet,self).save(*args,**kwargs)
+
+
     @property
     def count_like(self):
         count=self.liked.count()
@@ -72,7 +74,8 @@ class Like(models.Model):
     tweet = models.ForeignKey(Tweet,on_delete=models.CASCADE,related_name='user_tweet')
     user = models.ForeignKey(User,on_delete=models.CASCADE,editable=False,related_name='user_like')
     value = models.CharField(choices=LIKE_CHOICES,default='Like',max_length=10)
-   
+
+
     def save(self,*args,**kwargs): 
         user = get_current_user()
         

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-!g(u6xf3weikzubav^chu@jwojd5e884p^0r+-h*af68l2)$3%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'rest_framework',
     'twitter_app',
     'crispy_forms',
 
@@ -152,3 +152,6 @@ LANGUAGES=[
     ('en',_('English')),
    
 ]
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
