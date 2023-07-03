@@ -31,13 +31,13 @@ urlpatterns = [
     path('set_lenguage',views.set_lenguage,name='set_lenguage'),
     path('Delete_post',views.Delete_post,name='Delete_post'),
     path('logout_user',views.logout_user,name='logout_user'),
-    path('Like',views.like_create,name='Like'),
-    path('LikeList',views.like_list,name='LikeList'),
-    path('Retweet',views.retweet_post,name='Retweet'),
-    path('RetweetList',views.retweet_list,name='Retweet_List'),
-    path('Delete/<int:id>',views.delete_post,name='Delete'),
-    path('Tweet',views.tweet_create,name='Tweet'),
-    path('TweetList',views.tweet_list,name='TweetList')
+    path('Like',views.LikeAPIs.as_view(),name='Like'),
+
+    path('Retweet',views.ReTweetAPI.as_view(),name='Retweet'),
+
+    path('Delete/<int:id>',views.DeletePost.as_view(),name='Delete'),
+    path('Tweet',views.TweetCreate.as_view(),name='Tweet'),
+
 ]
 
 
