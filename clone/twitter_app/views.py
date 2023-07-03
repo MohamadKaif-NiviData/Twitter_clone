@@ -367,7 +367,7 @@ def Delete_post(request):
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
-
+from rest_framework.parsers import MultiPartParser,FormParser
 @api_view(['POST'])
 def Post(request):
     print('1')
@@ -407,7 +407,7 @@ def Post(request):
 
     if ser.is_valid():
 
-            print('mission pass')
+
             return Response(ser.data)
     else:
             return HttpResponse('<h1>Not Accepted data Please check again!</h1>')
@@ -428,9 +428,16 @@ def Retweet_Post(request):
         tweet_obj.retweet.remove(user)
     else:
         tweet_obj.retweet.add(user)
+    retweet, create = ReTweet.objects.get_or_create(tweet=tweet_obj, user=user)
+    if not create:
+        if retweet.value == 'ReTweet':
+            retweet.value = 'Remove'
+        else:
+            retweet.value = 'ReTweet'
+    retweet.save()
     ser = ReTweetSerializer(data=request.data)
     if ser.is_valid():
-        ser.save()
+
         return Response(ser.data)
     else:
         return HttpResponse('<h1>Not Accepted data Please check again!</h1>')
@@ -451,12 +458,18 @@ def delete_post(request,id):
 
 @api_view(['POST'])
 def Tweet_Post(request):
+    # parser_classes = (MultiPartParser,FormParser,)
+    print("call")
+    print(request.data['user'])
+    print(request.data)
     ser = TweetSerializer(data=request.data)
+    print(ser)
     if ser.is_valid():
-        ser.save()
-        return Response(ser.data)
+            ser.save()
+            print('save data')
+            return redirect('userhome')
     else:
-        return HttpResponse('data not correct')
+            return HttpResponse('data not correct')
 
 @api_view(['GET'])
 def Tweet_List(request):

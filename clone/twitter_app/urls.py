@@ -37,7 +37,7 @@ urlpatterns = [
     path('RetweetList',views.Retweet_List,name='Retweet_List'),
     path('Delete/<int:id>',views.delete_post,name='Delete'),
     path('Tweet',views.Tweet_Post,name='Tweet'),
-    path('Tweet_List',views.Tweet_List,name='Tweet_List')
+    path('TweetList',views.Tweet_List,name='TweetList')
 ]
 
 

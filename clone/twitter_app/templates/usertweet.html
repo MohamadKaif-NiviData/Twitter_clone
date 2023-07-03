@@ -3,25 +3,28 @@
 {% block cont %}
 {% load static  %}
 <div class=" mt-5">
-    <form action="{% url 'post_create_view'%}" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="text-start mt-2">
+    <div id="form" >
+
+        <div id="forms" class="text-start mt-2">
             Post {{ form.post }}
+            <input type="hidden" id="user_id" value="{{ user.id}}">
         </div>
-       
-       <div class="text-start mt-2">
-        Select image <input type="file"id="file_input" value={{ form.img }}  
-       </div>
+
+<!--       <div class="text-start mt-2">-->
+<!--
+<!--        Select image <input type="file"id="file_input" value={{ form.img }}  -->
+<!--       </div>-->
        
 
        <div class="text-start mt-3">
-        <input disabled type="submit" id="btnsubmit" value="Post"  class=" btn btn-primary mt-5 ms-2 ">
+        <input disabled type="submit" id="btnsubmit" value="Post"  class=" btn btn-primary mt-5 ms-2 " onclick="CreatePost()">
        </div>
         
       
-    </form>
+    </div>
 
     
 </div>
 <script src="{% static 'disable.js' %}"></script>
+<script src="{% static 'Post.js' %}"></script>
 {% endblock cont %}

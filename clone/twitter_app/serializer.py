@@ -8,7 +8,7 @@ class LikeSerializer(serializers.ModelSerializer):
 class TweetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tweet
-        fields = ['user','post','img']
+        fields = ['user','post']
 class ReTweetSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReTweet
