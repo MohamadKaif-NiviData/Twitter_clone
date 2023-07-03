@@ -24,7 +24,10 @@ function CreatePost(){
         },
         credentials: "same-origin",
     }).then((response) =>
-        response.json())
+       {
+           response.json()
+
+       })
         .then((json) => {
             console.log(json)
             // var forms = document.getElementById('forms')

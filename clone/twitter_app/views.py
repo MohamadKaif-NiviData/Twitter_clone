@@ -369,7 +369,7 @@ from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from rest_framework.parsers import MultiPartParser,FormParser
 @api_view(['POST'])
-def Post(request):
+def like_create(request):
     print('1')
     user = request.user
     user_id = request.user.id
@@ -412,14 +412,14 @@ def Post(request):
     else:
             return HttpResponse('<h1>Not Accepted data Please check again!</h1>')
 @api_view(['GET','POST'])
-def LikeList(request):
+def like_list(request):
 
     like_list = Like.objects.all()
     if like_list:
         like_obj = LikeSerializer(like_list,many=True)
         return  Response(like_obj.data)
 @api_view(['POST'])
-def Retweet_Post(request):
+def retweet_post(request):
     user = request.user
     user_id = user.id
     tweet_id = request.data["tweet"]
@@ -443,7 +443,7 @@ def Retweet_Post(request):
         return HttpResponse('<h1>Not Accepted data Please check again!</h1>')
 
 @api_view(['GET'])
-def Retweet_List(request):
+def retweet_list(request):
     queryset = ReTweet.objects.all()
     seriallizer_class = ReTweetSerializer(queryset,many=True)
     return  Response(seriallizer_class.data)
@@ -457,7 +457,7 @@ def delete_post(request,id):
 
 
 @api_view(['POST'])
-def Tweet_Post(request):
+def tweet_create(request):
     # parser_classes = (MultiPartParser,FormParser,)
     print("call")
     print(request.data['user'])
@@ -472,7 +472,7 @@ def Tweet_Post(request):
             return HttpResponse('data not correct')
 
 @api_view(['GET'])
-def Tweet_List(request):
+def tweet_list(request):
     tweet_list = Tweet.objects.all()
     if tweet_list:
         serializer_class = TweetSerializer(tweet_list,many=True)

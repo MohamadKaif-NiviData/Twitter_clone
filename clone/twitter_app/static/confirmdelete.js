@@ -30,7 +30,11 @@ function ConfirmDelete(id){
                "X-CSRFToken": getCookie("csrftoken"),
                'Content-type': 'application/json; charset=UTF-8',
            }
+       }).then(res=>{
+           return confirm("Are you wen to delete")
        })
 
 
+
 }
+
